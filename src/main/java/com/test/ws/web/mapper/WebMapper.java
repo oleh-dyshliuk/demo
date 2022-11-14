@@ -41,7 +41,7 @@ public interface WebMapper {
     }
 
     /** here we are updating existing {@link Film} using properties from {@link UpdateFilmDto}
-     * "id" and "genres" are ignored cause  {@link UpdateFilmDto}
+     * "id" and "genres" are ignored as {@link UpdateFilmDto} does not contain these properties
      * and unmappedTargetPolicy(in {@link Mapper) annotation above this class) will throw error in other case while compiling
      *
      * @param oldFilm
