@@ -24,6 +24,8 @@ public interface WebMapper {
     WebMapper I = Mappers.getMapper(WebMapper.class);
 
     /**
+     * {@link Film} to {@link FilmDto}
+     * (to show case with specific conversion logic, but its not the only way we can do this)
      *
      * @param film
      * @return
@@ -38,7 +40,9 @@ public interface WebMapper {
                 .collect(Collectors.toList());
     }
 
-    /**
+    /** here we are updating existing {@link Film} using properties from {@link UpdateFilmDto}
+     * "id" and "genres" are ignored cause  {@link UpdateFilmDto}
+     * and unmappedTargetPolicy(in {@link Mapper) annotation above this class) will throw error in other case while compiling
      *
      * @param oldFilm
      * @param updateFilmDto
@@ -49,6 +53,7 @@ public interface WebMapper {
     Film update(@MappingTarget Film oldFilm, UpdateFilmDto updateFilmDto);
 
     /**
+     * here implemented simple setting property changeCollectionDto.newCollection to film.collection (line 65)
      *
      * @param oldFilm
      * @param changeCollectionDto
@@ -61,6 +66,7 @@ public interface WebMapper {
     Film update(@MappingTarget Film oldFilm, ChangeCollectionDto changeCollectionDto);
 
     /**
+     * simple mapping without any specific logic
      *
      * @param genre
      * @return
@@ -68,6 +74,7 @@ public interface WebMapper {
     GenreDto toGenreDto(Genre genre);
 
     /**
+     * creating {@link Film} from {@link NewFilmDto} and {@link List<Genre>} as a result of runtime genres creating
      *
      * @param newFilmDto
      * @param genres

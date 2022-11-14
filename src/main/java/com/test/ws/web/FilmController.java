@@ -35,12 +35,20 @@ public class FilmController {
 
     @PostMapping
     public FilmDto create(@RequestBody NewFilmDto newFilmDto) {
+
+        // here i tried to add some extra logic just to show how would it work in weird cases
+        // the case is - if genre does not exists but film has one - it should be created
         List<Genre> genres = genreService.findAllOrCreate(newFilmDto.getGenres());
 
         return WebMapper.I.toFilmDto(
                 filmService.create(WebMapper.I.toFilm(newFilmDto, genres))
         );
     }
+
+    // todo:
+    // in next two methods you can see that we used now same method filmService.update() for different dto
+    // also same method we can use later in any other services (GenreService, ...)
+    // that's the reason to add representation between entity and vo (here i accidentally replaced vo with dto)
 
     @PutMapping("/{id}")
     public FilmDto update(@PathVariable Long id, @RequestBody UpdateFilmDto updateFilmDto) {
